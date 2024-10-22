@@ -41,3 +41,7 @@ class AuthService:
     @property
     def is_authenticated(self) -> bool:
         return self.current_user is not None
+    #
+    # def register_user(self, email: str, username: str, password:str, confirm_passwod:str) ->tuple[bool, str]:
+    #     if not email or not username or not password or not confirm_passwod:
+    #         return False, "Todos los campos son requeridos"
