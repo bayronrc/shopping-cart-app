@@ -1,6 +1,8 @@
 
-from .constants import AppConfig, AppColors
+from .constants import AppConfig, AppColors, Oauth
+
 __all__ = [
     'AppColors',
-    'AppConfig'
+    'AppConfig',
+    'Oauth'
 ]
