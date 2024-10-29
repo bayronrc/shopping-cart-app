@@ -1,23 +1,22 @@
 import flet as ft
+
+from pages import LoginPage
+
+ROUTES = {
+    "/login": LoginPage
+}
+
+
 class Router:
-    def __init__(self,page: ft.Page, auth_service):
+    def __init__(self, page: ft.Page):
         self.page = page
-        self.routes = {}
-        self.auth_service = auth_service
 
-    def add_route(self, route:str, view_class, requires_auth:bool = False):
-        self.routes[route] = {
-            "view_class" : view_class,
-            "requires_auth" : requires_auth
-        }
-
-    def navigate(self, route:str):
-        if route not in self.routes:
-            print(f"Route {route} not found ")
-            return
-        route_config = self.routes[route]
-
-        self.page.controls.clear()
-        view = route_config["view_class"](self.page,self)
-        self.page.controls.append(view)
+    def navigate(self, route: str):
+        if route in ROUTES:
+            self.page.controls.clear()
+            view = ROUTES[route](self.page)
+            self.page.add(view)
+        else:
+            self.page.controls.clear()
+            self.page.add(ft.Text("404 - Not Found"))
         self.page.update()
