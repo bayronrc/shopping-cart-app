@@ -20,6 +20,7 @@ def main(page: ft.Page):
 
     page.go("/login")
 
+    #https://github.com/1Mr-Newton/Signup---Login-auth-with-Firebase
 
 
 
