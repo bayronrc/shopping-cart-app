@@ -3,11 +3,10 @@ import flet as ft
 from flet_core.alignment import bottom_right
 
 
-class RegisterPage:
-    def __init__(self, page: ft.Page,router = None):
+class RegisterPage(ft.UserControl):
+    def __init__(self, page: ft.Page):
         super().__init__()
         self.page = page
-        self.router = router
 
         self.username_field = ft.TextField(
             label = "Usuario",

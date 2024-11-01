@@ -1,83 +1,91 @@
-from flet import *
-
-from utils.validators import validate_email, validate_password
+import flet as ft
 
 
-class LoginForm(Control):
-    def __init__(self, page: Page, on_login):
+
+class LoginForm(ft.UserControl):
+    def __init__(self, auth_service):
         super().__init__()
-        self.page = page
-        self.on_login = on_login
+        self.auth_service = auth_service
 
-        self.email_field = TextField(
-            label='Email',
-            border_color=colors.BLUE_400,
+        self.email_field = ft.TextField(
+            label="Email",
+            border_color=ft.colors.BLUE_400,
             width=300,
-            autofocus=True,
+            autofocus=True
         )
-        self.password_field = TextField(
-            label='Password',
-            border_color=colors.BLUE_400,
+
+        self.password_field = ft.TextField(
+            label="Contraseña",
+            border_color=ft.colors.BLUE_400,
             password=True,
             can_reveal_password=True,
-            width=300,
-        )
-        self.error_text = Text(
-            color=colors.RED_400,
-            size=12
+            width=300
         )
 
-    def validate_form(self) -> bool:
-        email_valid, email_error = validate_email(self.email_field.value)
+        self.error_text = ft.Text(
+            color=ft.colors.RED_400,
+            size=12,
+            text_align=ft.TextAlign.CENTER
+        )
 
-        if not email_valid:
-            self.error_text.value = email_error
-            self.update()
-            return False
+    def handle_login(self, e):
+        success, message = self.auth_service.login(
+            self.email_field.value,
+            self.password_field.value
+        )
 
-        password_valid, password_error = validate_password(self.password_field.value)
-        if not password_valid:
-            self.error_text.value = password_error
-            self.update()
-            return False
-        return True
+        if success:
+            self.error_text.value = ""
+            self.error_text.color = ft.colors.GREEN_400
+            self.error_text.value = "¡Login exitoso!"
+            # Aquí puedes agregar la lógica para redirigir a la página de dashboard
+        else:
+            self.error_text.value = message
+            self.error_text.color = ft.colors.RED_400
 
-    async def on_submit(self, _) -> None:
-        if not self.validate_form():
-            return
-
-        self.error_text.value = ""
-        await self.on_login(self.email_field.value, self.password_field.value)
+        self.update()
 
     def build(self):
-        return Column(
-            controls=[
-                Text(
-                    "Bienvenido",
-                    size=32,
-                    weight=FontWeight.BOLD,
-                    text_align=TextAlign.CENTER,
-                ),
-                Text(
-                    "Ingresa a tu cuenta",
-                    size=16,
-                    color=colors.GREEN_700,
-                    text_align= TextAlign.CENTER,
-                ),
-                Divider(height=20, color=colors.TRANSPARENT),
-                self.email_field,
-                self.password_field,
-                self.error_text,
-                ElevatedButton(
-                    text="Iniciar Sesion",
-                    width=300,
-                    on_click = self.on_submit,
-                ),
-                Row(
-                    controls=[
-                        Text("¿No tienes una cuenta?"),
-                        TextButton("Registrate", on_click=lambda _: self.page.go("/register"))
-                    ]
-                )
-            ]
+        ft.Container(
+            content=ft.Column(
+                controls=[
+                    ft.Text(
+                        "Iniciar Sesión",
+                        size=32,
+                        weight=ft.FontWeight.BOLD,
+                        text_align=ft.TextAlign.CENTER
+                    ),
+                    self.email_field,
+                    self.password_field,
+                    self.error_text,
+                    ft.ElevatedButton(
+                        text="Iniciar Sesión",
+                        width=300,
+                        height=50,
+                        on_click=self.handle_login
+                    ),
+                    ft.Container(
+                        content=ft.Divider(thickness=2, color=ft.colors.GREY, opacity=0.2),
+                        width=300
+                    ),
+                    ft.ElevatedButton(
+                        content=ft.Row(
+                            [
+                                ft.Image(src="icons/google_icon.png", height=40, width=40),
+                                ft.Text("Iniciar sesión con Google")
+                            ],
+                            alignment=ft.MainAxisAlignment.CENTER
+                        ),
+                        color=ft.colors.WHITE,
+                        width=300,
+                        height=50,
+                        on_click=lambda e: print("Login con Google")
+                    ),
+                ],
+                alignment=ft.MainAxisAlignment.CENTER,
+                horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                spacing=20,
+            ),
+            expand=True,
+            padding=ft.padding.symmetric(horizontal=40, vertical=20),
         )

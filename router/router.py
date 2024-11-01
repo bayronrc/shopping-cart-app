@@ -1,9 +1,11 @@
 import flet as ft
 
 from pages import LoginPage
+from pages.register_page import RegisterPage
 
 ROUTES = {
-    "/login": LoginPage
+    "/login": LoginPage,
+    "/register": RegisterPage,
 }
 
 
