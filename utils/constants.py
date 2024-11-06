@@ -16,3 +16,4 @@ class Oauth:
     TOKEN_URL = "token_url"
     REDIRECT_URI = "redirect_url"
     SCOPE = ["https://www.googleapis.com/auth/shoppingcart"]
+
