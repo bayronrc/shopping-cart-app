@@ -1,7 +1,7 @@
 import flet as ft
 
 class AuthLayout(ft.UserControl):
-    def __init__(self, content:ft.UserControl):
+    def __init__(self,  content:ft.UserControl):
         super().__init__()
         self.content = content
 

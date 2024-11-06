@@ -35,6 +35,7 @@ class AuthService:
             username=user_data["username"]
         )
         return True, "Login exitoso"
+
     def logout(self):
         self.current_user = None
 

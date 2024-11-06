@@ -32,23 +32,6 @@ class LoginPage(ft.UserControl):
             text_align=ft.TextAlign.CENTER
         )
 
-    def handle_login(self, e):
-        success, message = self.auth_service.login(
-            self.email_field.value,
-            self.password_field.value
-        )
-
-        if success:
-            self.error_text.value = ""
-            self.error_text.color = ft.colors.GREEN_400
-            self.error_text.value = "¡Login exitoso!"
-            # Aquí puedes agregar la lógica para redirigir a la página de dashboard
-        else:
-            self.error_text.value = message
-            self.error_text.color = ft.colors.RED_400
-
-        self.update()
-
     def build(self):
         return ft.Container(
             self.content,

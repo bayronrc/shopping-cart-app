@@ -1,10 +1,10 @@
 import flet as ft
 
-from services import AuthService
+from services import AuthService, auth_service
 
 
 class LoginForm(ft.UserControl):
-    def __init__(self,auth_service: AuthService):
+    def __init__(self, auth_service: AuthService):
         super().__init__()
         self.auth_service = auth_service
 
@@ -28,11 +28,21 @@ class LoginForm(ft.UserControl):
             size=12,
             text_align=ft.TextAlign.CENTER
         )
-    def handle_login(self,_):
-        email = self.email_field.value
-        password = self.password_field.value
 
+    def handle_login(self, _):
+        success, message = self.auth_service.login(self.email_field.value, self.password_field.value)
 
+        if success:
+            self.error_text.value = ''
+            self.error_text.color = ft.colors.GREEN_400
+            self.error_text.value = 'Login successful!'
+            print("Se va para la dashboard")
+            # self.page.go("/dashboard")
+        else:
+            self.error_text.value = ''
+            self.error_text.color = ft.colors.RED_400
+            self.error_text.value = message
+        self.update()
 
     def build(self):
         return ft.Column(

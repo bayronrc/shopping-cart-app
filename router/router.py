@@ -2,11 +2,13 @@ import flet as ft
 
 from layouts.auth_layout import AuthLayout
 from pages import LoginPage
+from pages.home_page import HomePage
 from pages.register_page import RegisterPage
 
 ROUTES = {
     "/login": lambda page: AuthLayout(LoginPage(page)),
     "/register": lambda page: AuthLayout(RegisterPage(page)),
+    "/dashboard": lambda page: DashboarLayout(HomePage(page)),
 }
 
 

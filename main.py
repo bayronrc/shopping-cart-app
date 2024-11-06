@@ -15,7 +15,6 @@ def main(page: ft.Page):
     page.theme_mode = ft.Theme(color_scheme_seed="green")
     page.theme = ft.Theme(font_family="Poppins Regular")
     page.favicon = "icons/google_icon.png"
-
     page.fonts = {
         "SF Pro Bold":"fonts/SFProText-Bold.ttf",
         "SF Pro Heavy":"fonts/SFProText-Heavy.ttf",
