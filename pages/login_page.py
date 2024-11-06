@@ -1,13 +1,7 @@
 import flet as ft
 
-
-class AuthService:
-    def login(self, email, password):
-
-        if email == "user@example.com" and password == "password123":
-            return True, "¡Login exitoso!"
-        else:
-            return False, "Credenciales incorrectas"
+from components import LoginForm
+from services import AuthService
 
 
 class LoginPage(ft.UserControl):
@@ -15,6 +9,7 @@ class LoginPage(ft.UserControl):
         super().__init__()
         self.page = page
         self.auth_service = AuthService()
+        self.content = LoginForm(self.auth_service)
 
         self.email_field = ft.TextField(
             label="Email",
@@ -55,69 +50,8 @@ class LoginPage(ft.UserControl):
         self.update()
 
     def build(self):
-        return ft.Row(
-            controls=[
-                ft.Card(
-                    color=ft.colors.SECONDARY_CONTAINER,
-                    content=ft.Row(
-                        controls=[
-                            # Imagen a la izquierda
-                            ft.Image(
-                                src="images/loginImage.jpg",
-                                fit=ft.ImageFit.COVER,
-                                width=840,
-                                height=600,
-                                border_radius=ft.border_radius.only(top_left=12, bottom_left=12),
-                            ),
-
-                            ft.Container(
-                                content=ft.Column(
-                                    controls=[
-                                        ft.Text(
-                                            "Iniciar Sesión",
-                                            size=32,
-                                            weight=ft.FontWeight.BOLD,
-                                            text_align=ft.TextAlign.CENTER
-                                        ),
-                                        self.email_field,
-                                        self.password_field,
-                                        self.error_text,
-                                        ft.ElevatedButton(
-                                            text="Iniciar Sesión",
-                                            width=300,
-                                            height=50,
-                                            on_click=self.handle_login
-                                        ),
-                                        ft.Container(
-                                            content=ft.Divider(thickness=2, color=ft.colors.GREY, opacity=0.2),
-                                            width=300
-                                        ),
-                                        ft.ElevatedButton(
-                                            content=ft.Row(
-                                                [
-                                                    ft.Image(src="icons/google_icon.png", height=40, width=40),
-                                                    ft.Text("Iniciar sesión con Google")
-                                                ],
-                                                alignment=ft.MainAxisAlignment.CENTER
-                                            ),
-                                            color=ft.colors.WHITE,
-                                            width=300,
-                                            height=50,
-                                            on_click=lambda e: print("Login con Google")
-                                        ),
-                                    ],
-                                    alignment=ft.MainAxisAlignment.CENTER,
-                                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                                    spacing=20,
-                                ),
-                                expand=True,
-                                padding=ft.padding.symmetric(horizontal=40, vertical=20),
-                            ),
-                        ]
-                    ),
-                    width=1200,
-                ),
-            ],
-            alignment=ft.MainAxisAlignment.CENTER,
-            vertical_alignment=ft.CrossAxisAlignment.CENTER,
+        return ft.Container(
+            self.content,
+            expand=True,
+            padding=ft.padding.symmetric(horizontal=10, vertical=10),
         )

@@ -1,4 +1,3 @@
-
 import flet as ft
 from flet_core.alignment import bottom_right
 
@@ -9,35 +8,35 @@ class RegisterPage(ft.UserControl):
         self.page = page
 
         self.username_field = ft.TextField(
-            label = "Usuario",
-            width = 300,
-            border_color= ft.colors.BLUE_400
+            label="Usuario",
+            width=300,
+            border_color=ft.colors.BLUE_400
         )
         self.password_field = ft.TextField(
-            label = "Contraseña",
-            width = 300,
-            border_color= ft.colors.BLUE_400,
+            label="Contraseña",
+            width=300,
+            border_color=ft.colors.BLUE_400,
             password=True,
             can_reveal_password=True
         )
         self.confirm_password_field = ft.TextField(
-            label = "Confirmar Contraseña",
-            width = 300,
-            border_color= ft.colors.BLUE_400,
+            label="Confirmar Contraseña",
+            width=300,
+            border_color=ft.colors.BLUE_400,
             can_reveal_password=True
         )
         self.email_field = ft.TextField(
-            label = "Email",
-            width = 300,
-            border_color= ft.colors.BLUE_400,
+            label="Email",
+            width=300,
+            border_color=ft.colors.BLUE_400,
         )
         self.error_text = ft.Text(
             color=ft.colors.RED_400,
             size=12,
             text_align=ft.TextAlign.CENTER
         )
-    # def handle_register(self):
 
+    # def handle_register(self):
 
     def build(self):
         return ft.Container(
@@ -71,4 +70,3 @@ class RegisterPage(ft.UserControl):
             ], horizontal_alignment=ft.CrossAxisAlignment.CENTER),
             margin=ft.margin.only(top=50)
         )
-
