@@ -13,6 +13,7 @@ def main(page: ft.Page):
     page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
     page.theme_mode = ft.Theme(color_scheme_seed="green")
+    page.theme = ft.Theme(font_family="Poppins Regular")
     page.favicon = "icons/google_icon.png"
 
     page.fonts = {
